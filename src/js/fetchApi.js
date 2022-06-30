@@ -1,23 +1,52 @@
-import axios from 'axios';
-
+// import axios from 'axios';
 
 const API_KEY = `28317427-cd386f88f666cbda8176ce58f`;
 const BASE_URL = `https://pixabay.com/api/`;
 
-export async function fetchEvents(keyword, page) {
-  const params = new URLSearchParams({
-    key: API_KEY,
-    q:keyword,
-    image_type: `photo`,
-    orientation: `horizontal`,
-    safesearch: `true`,
-    per_page: `40`,
-    page: page,
-  });
+// async
+export default class NewApiFetch {
+  constructor() {
+    this.query = '';
+    this.page = 1;
+  }
 
-  const response = await axios.get(`${BASE_URL}?${params}`)
-  return response.data
+  fetchArticles() {
+    console.log(this);
+    const params = new URLSearchParams({
+      key: API_KEY,
+      q: this.query,
+      image_type: `photo`,
+      orientation: `horizontal`,
+      safesearch: `true`,
+      per_page: `40`,
+      page: `1`,
+    });
+    return fetch(`${BASE_URL}?${params}`)
+      .then(response => response.json())
+      .then(data => {
+        this.incrementPage();
+      });
+  }
 }
+
+// incrementPage() {
+//   this.page += 1;
+// }
+
+// resetPage() {
+//   this.page = 1;
+// }
+
+// get query() {
+//   return this.query;
+// }
+
+// set query(newQuery) {
+//   this.query = newQuery;
+// }
+
+
+
 
 
 
