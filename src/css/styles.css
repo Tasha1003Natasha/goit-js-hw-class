@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
+  color: #212121;
+  line-height: 1.5;
+}
+
+#searchQuery {
+  font: inherit;
+  padding: 8px;
+  max-width: 320px;
+  margin-bottom: 16px;
+}
+
+
+/* Скрытый заголовок */
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
+
+input[type=text] {
+  box-sizing: border-box;
+  padding: 12px 20px;
+  margin: 20px 20px;
+  border: 5px solid #1b22f59f;
+  border-radius: 4px;
+  background-color: #eff21b9f;
+  color: black;
+}
+
+
+button[type=submit] {
+  background-color: #eff21b9f;
+  border: 3px solid #1b22f59f;
+}
+
+button[type=submit]:hover,
+button[type=submit]:focus {
+    background-color:#188CE8;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1em;
+}
+
+img {
+  width: 100%; 
+  height: auto;
+}
+
