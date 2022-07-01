@@ -1,7 +1,9 @@
 // import axios from 'axios';
+import Notiflix from 'notiflix';
 
 const API_KEY = `28317427-cd386f88f666cbda8176ce58f`;
 const BASE_URL = `https://pixabay.com/api/`;
+
 
 // async
 export default class NewApiFetch {
@@ -11,7 +13,7 @@ export default class NewApiFetch {
   }
 
   fetchArticles() {
-    console.log(this);
+    // console.log(this);
     const params = new URLSearchParams({
       key: API_KEY,
       q: this.query,
@@ -19,26 +21,37 @@ export default class NewApiFetch {
       orientation: `horizontal`,
       safesearch: `true`,
       per_page: `40`,
-      page: `1`,
+      page:this.page,
     });
     return fetch(`${BASE_URL}?${params}`)
-      .then(response => response.json())
-      .then(({hits}) => {
-        console.log(hits);
-        this.incrementPage();
-        return hits;
-      });
+      .then(response => {
+        return response.json()
+      })
+      // .then(data => {
+      //   console.log(data.hits);
+      //   const newhits = data.hits;
+      //   const newTotalHits = data.totalHits;
+      //   // console.log(newhits);
+      //   // console.log(newTotalHits);
+
+      //   this.incrementPage();
+      //   if (this.page > 1) {
+      //     Notiflix.Notify.success(
+      //       'Hooray! We found' + ' ' + newTotalHits + ' ' + 'images.'
+      //     );
+      //   }
+      //   return newhits;
+      // });
   }
+
   incrementPage() {
     this.page += 1;
   }
+
   resetPage() {
     this.page = 1;
   }
 }
-
-
-
 
 // Без asynс//////////////////////
 // return response
