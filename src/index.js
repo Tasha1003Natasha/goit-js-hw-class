@@ -1,51 +1,54 @@
 import './css/styles.css';
-import NewApiFetch  from './js/fetchApi';
+import NewApiFetch from './js/fetchApi';
+import markup from './templates/markup.hbs';
+
 import Notiflix from 'notiflix';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import SimpleLightbox from 'simplelightbox';
 
-
 const formEl = document.querySelector('#search-form');
 const galleryEl = document.querySelector('.gallery');
 
+const newApiFetch = new NewApiFetch();
 
-
-const newApiFetch =  new NewApiFetch();
-
+// // ////////////////////submit/////////////////
 formEl.addEventListener('submit', handleSubmit);
-function handleSubmit(event){
+
+function handleSubmit(event) {
   event.preventDefault();
   const form = event.currentTarget;
   newApiFetch.query = form.elements.searchQuery.value;
-  newApiFetch.fetchArticles();
+  if (newApiFetch.query === '') {
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    return;
+  }
   newApiFetch.resetPage();
-
+  newApiFetch.fetchArticles().then(articles => {
+    clearArticles();
+    appendArticles(articles);
+  });
 }
 
 const loadMore = document.querySelector('.load-more');
-// loadMore.classList.add('visually-hidden');
+loadMore.classList.add('visually-hidden');
 
 // // ////////////////////click/////////////////
 loadMore.addEventListener('click', handleClick);
 function handleClick() {
-  newApiFetch.fetchArticles();
+  newApiFetch.fetchArticles().then(articles => appendArticles(articles));
 }
 
+function appendArticles(articles) {
+  galleryEl.insertAdjacentHTML('beforeend', markup(articles));
+  let gallery = new SimpleLightbox('.gallery  a', {});
+  gallery.refresh();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function clearArticles() {
+  galleryEl.innerHTML = '';
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // let page = 1;
@@ -138,7 +141,7 @@ function handleClick() {
 //         downloads,
 //       }) => {
 //         return `
-//     <div class="photo-card"> 
+//     <div class="photo-card">
 //     <a class="info-link" href="${largeImageURL}">
 //     <img class="info-image" src="${webformatURL}" alt="${tags}" loading="lazy"/>
 //     </a>
@@ -156,14 +159,14 @@ function handleClick() {
 //         <b>Downloads: </b>${downloads}
 //       </p>
 //     </div>
-//   </div> 
+//   </div>
 //    `;
 //       }
 //     )
 //     .join('');
-  
+
 //   galleryEl.innerHTML = markup;
- 
+
 //   let gallery = new SimpleLightbox('.gallery  a', {});
 //   gallery.refresh();
 //     }
@@ -205,7 +208,7 @@ function handleClick() {
 //           return
 //          }
 //           renderEvents(events);
-        
+
 //           if (keyword === "" ) {
 //             galleryEl.innerHTML = "";
 //             // loadMore.classList.add('visually-hidden');
@@ -226,5 +229,3 @@ function handleClick() {
 //     }
 //   });
 // }
-
-

@@ -23,29 +23,19 @@ export default class NewApiFetch {
     });
     return fetch(`${BASE_URL}?${params}`)
       .then(response => response.json())
-      .then(data => {
+      .then(({hits}) => {
+        console.log(hits);
         this.incrementPage();
+        return hits;
       });
   }
+  incrementPage() {
+    this.page += 1;
+  }
+  resetPage() {
+    this.page = 1;
+  }
 }
-
-// incrementPage() {
-//   this.page += 1;
-// }
-
-// resetPage() {
-//   this.page = 1;
-// }
-
-// get query() {
-//   return this.query;
-// }
-
-// set query(newQuery) {
-//   this.query = newQuery;
-// }
-
-
 
 
 
