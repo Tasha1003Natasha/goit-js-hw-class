@@ -27,21 +27,6 @@ export default class NewApiFetch {
       .then(response => {
         return response.json()
       })
-      // .then(data => {
-      //   console.log(data.hits);
-      //   const newhits = data.hits;
-      //   const newTotalHits = data.totalHits;
-      //   // console.log(newhits);
-      //   // console.log(newTotalHits);
-
-      //   this.incrementPage();
-      //   if (this.page > 1) {
-      //     Notiflix.Notify.success(
-      //       'Hooray! We found' + ' ' + newTotalHits + ' ' + 'images.'
-      //     );
-      //   }
-      //   return newhits;
-      // });
   }
 
   incrementPage() {

@@ -33,8 +33,12 @@ function handleSubmit(event) {
     } else {
       loadMore.classList.add('visually-hidden');
     }
+  
     clearArticles();
     appendArticles(articles.hits);
+
+  
+
 
     const { height: cardHeight } = document
       .querySelector('.gallery')
@@ -76,3 +80,10 @@ function appendArticles(articles) {
 function clearArticles() {
   galleryEl.innerHTML = '';
 }
+// //////////////////////////////
+// if (newApiFetch.page > 1) {
+//   Notiflix.Notify.success(
+//     'Hooray! We found' + ' ' +  newApiFetch.totalHits + ' ' + 'images.'
+//   );
+//   return;
+// }
